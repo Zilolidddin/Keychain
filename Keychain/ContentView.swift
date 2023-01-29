@@ -6,16 +6,23 @@
 //
 
 import SwiftUI
+import SwiftKeychainWrapper
 
 struct ContentView: View {
+    
+    @ObservedObject var defs = Defs()
+    @State var text = "No data"
+    
+    init() {
+        print(defs.loadUser() as Any)
+        let user = User(email: "tester@gmail.com", password: "123qwe")
+        defs.user = user
+        print(defs.loadUser() as Any)
+    }
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        Text(defs.loadUser()!.email)
+            .padding()
     }
 }
 
